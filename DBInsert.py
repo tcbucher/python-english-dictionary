@@ -5,7 +5,7 @@ import mysql.connector
 
 user_name = 'python-app'
 user_pass = input('Enter password for user %s:' % user_name)
-db_name = 'english_dictionary'
+db_name = "english_dictionary"
 
 con = mysql.connector.connect(
     user = user_name,
@@ -21,9 +21,10 @@ with open('C:/Users/Tim/Udemy/Python/data.json','r') as data_file:
 iterator = 1
 for word, definition_list in data.items():
     for definition in definition_list:
-        statement = "INSERT INTO %s.definitions (word,definition) VALUES (%s, %s);"
-        parameters = (db_name, word, definition)
+        statement = "INSERT INTO english_dictionary.definitions (word,definition) VALUES (%s, %s);"
+        parameters = (word, definition)
         cursor.execute(statement, parameters)
+        print(cursor.statement)
     iterator += 1
     if (iterator % 100 == 0):
         cursor.execute("COMMIT;")
