@@ -8,7 +8,7 @@ user_pass = input('Enter password for user %s:' % user_name)
 db_name = 'english_dictionary'
 
 #TODO: add a try to this to handle connection failures
-cxn = mysql.connector.connect(
+mysql_connection = mysql.connector.connect(
     user = user_name,
     password = user_pass,
     host = 'localhost',
@@ -16,13 +16,13 @@ cxn = mysql.connector.connect(
 )
 
 def getDefsFromDB(word):
-    cursor = cxn.cursor()
+    cursor = mysql_connection.cursor()
     query = "SELECT definition FROM %s.definitions WHERE WORD = '%s'"%(db_name,word)
     cursor.execute(query)
     return [result[0] for result in cursor.fetchall()]
 
 def loadWords():
-    cursor = cxn.cursor()
+    cursor = mysql_connection.cursor()
     cursor.execute("SELECT WORD FROM %s.definitions"%db_name)
     return [result[0] for result in cursor.fetchall()]
 
