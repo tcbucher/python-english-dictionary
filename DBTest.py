@@ -19,10 +19,10 @@ cxn = mysql.connector.connect(
 cursor = cxn.cursor()
 
 # Get out all the words from the database and put them in a list.  There should be a list of about 60k
-cursor.execute("SELECT WORD FROM %s.definitions"%db_name)
+# cursor.execute("SELECT WORD FROM %s.definitions"%db_name)
+# results = [result[0] for result in cursor.fetchall()]
 
-# results = cursor.fetchall()
-# flat_results = [result[0] for result in results]
-flat_results = [result[0] for result in cursor.fetchall()]
 
-print(flat_results[0:5])
+cursor.execute("SELECT definition FROM %s.definitions WHERE WORD = '%s'"%(db_name,'snow'))
+results = [result[0] for result in cursor.fetchall()]
+print(results)
